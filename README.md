@@ -1,1 +1,1 @@
-#AWSproject
+# UWP currency exchange display
