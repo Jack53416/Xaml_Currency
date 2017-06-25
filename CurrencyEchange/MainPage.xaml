@@ -1,0 +1,50 @@
+﻿<Page
+    x:Class="CurrencyEchange.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CurrencyEchange"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Width="441">
+    <Page.TopAppBar>
+        <CommandBar Background="#FFF5F6F5" Foreground="Black">
+            <CommandBar.Content>
+                <Grid/>
+            </CommandBar.Content>
+            <AppBarButton Icon="Clear" Label="CloseApp" Click="AppBarButton_Click"/>
+
+        </CommandBar>
+    </Page.TopAppBar>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="39*"/>
+            <RowDefinition Height="121*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="buttonDownloadDates" Content="Pobierz Daty" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="33" Width="104" Click="buttonDownloadDates_Click"/>
+        <ListView x:Name="listViewDates" ItemsSource="{x:Bind cData.headers, Mode=OneWay}"  HorizontalAlignment="Left" Height="520" VerticalAlignment="Top" Width="183" SelectionChanged="listViewDates_SelectionChanged" Margin="0,110,0,0" Grid.RowSpan="2">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:Header">
+                    <TextBlock Text="{x:Bind OnlyDate}"></TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView x:Name="listViewCurrencies" ItemsSource="{x:Bind cData.currencies, Mode=OneWay}" HorizontalAlignment="Center" Height="520" VerticalAlignment="Top" Width="243" Margin="193,110,5,0" SelectionChanged="listViewCurrencies_SelectionChanged" Grid.RowSpan="2">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:Currency">
+                    <StackPanel Orientation="Horizontal" Margin="6">
+                        <SymbolIcon Symbol="Calculator" Margin="0,0,12,0"></SymbolIcon>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{x:Bind name}" FontWeight="Bold" FontSize="14"></TextBlock>
+                            <TextBlock Text="{x:Bind summary}" Foreground="#FF0D989A"></TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <TextBlock x:Name="textBlockStatus" HorizontalAlignment="Left" Margin="10,56,0,0" TextWrapping="Wrap" Text="Status..." VerticalAlignment="Top" Height="33" Width="173" FontSize="13.333" FontStyle="Italic"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="193,56,85,0" TextWrapping="Wrap" Text="Kursy średnie na dzień:" VerticalAlignment="Top" Width="163" Height="33" FontWeight="Bold"/>
+        <TextBlock x:Name="textBlockDate" HorizontalAlignment="Center" Margin="374,54,10,0" TextWrapping="Wrap" Text="{x:Bind cData.CurrentlySelectedHeader.OnlyDate, Mode=OneWay}" VerticalAlignment="Top" Width="57" Height="51" FontWeight="Bold" TextAlignment="Center" FontSize="16"/>
+
+    </Grid>
+</Page>
