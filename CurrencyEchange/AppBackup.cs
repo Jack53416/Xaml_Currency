@@ -14,8 +14,8 @@ namespace CurrencyEchange
 {
     public static class AppBackup
     {
-        public static string currencyDataKey = "currencyData";
-        public static string currencyHistoryKey = "currencyHistory";
+        public static readonly string currencyDataKey = "currencyData";
+        public static readonly string currencyHistoryKey = "currencyHistory";
 
         public static Dictionary<string, object> appState = new Dictionary<string, object>();
 
@@ -38,7 +38,6 @@ namespace CurrencyEchange
         }
         public static async Task storeAppState()
         {
-            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
             var ms = new MemoryStream();
             var serializer = new DataContractSerializer(typeof(Dictionary<string, object>));
             serializer.WriteObject(ms, appState);

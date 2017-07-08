@@ -221,9 +221,7 @@ namespace CurrencyEchange
             Header result = new Header();
             DateTime date;
             string dateStr;
-            if (filename.Length < expectedFilenameLength)
-                return null;
-            else if (filename.First() != 'a')
+            if (filename.Length < expectedFilenameLength || filename.First() != 'a')
                 return null;
             try
             {

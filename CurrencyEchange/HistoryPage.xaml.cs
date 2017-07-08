@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
@@ -28,7 +29,7 @@ namespace CurrencyEchange
    
     public sealed partial class HistoryPage : Page
     {
-        private CurrencyHistoryView currencyView;
+        private readonly CurrencyHistoryView currencyView;
         private CancellationTokenSource m_cancellationSource;
         IAsyncActionWithProgress<int> downloadAction = null;
 
@@ -69,7 +70,7 @@ namespace CurrencyEchange
                 loadLog();
             }
         }
-        private async void loadLog()
+        private async Task loadLog()
         {
             StorageFile localFile;
             var localFolder = ApplicationData.Current.LocalFolder;
@@ -129,7 +130,7 @@ namespace CurrencyEchange
             localSettings.Values["chartPageSettings"] = composite;
         }
 
-        private async void storeChartData()
+        private async Task storeChartData()
         {
             StorageFolder localFolder = ApplicationData.Current.LocalFolder;
             string rootFrameDataString = ObjectSerializer<ObservableCollection<CurrencyHistory>>.ToXml(currencyView.log);
@@ -149,7 +150,7 @@ namespace CurrencyEchange
         private async void buttonStart_Click(object sender, RoutedEventArgs e)
         {
             textBlockError.Text = "";
-            lineChart.Header = lineChart.Header = $"{currencyView.CurrencyName} Exchange rate";
+            lineChart.Header = $"{currencyView.CurrencyName} Exchange rate";
             lineChart.Series[0].ItemsSource = currencyView.log;
             lineChart.SuspendSeriesNotification();
 

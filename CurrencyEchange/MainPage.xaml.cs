@@ -43,7 +43,6 @@ namespace CurrencyEchange
             else if (storedData != null)
             {
                 cData.headers.Add(storedData);
-                //listViewDates.SelectedItem = listViewDates.Items.Last();
             }
             
         }
@@ -121,7 +120,6 @@ namespace CurrencyEchange
                         operation.Progress = (result, progress) => { textBlockStatus.Text = progress; };
                         active = await operation;
                         this.listViewCurrencies.ItemsSource = cData.currencies;
-                       // textBlockDate.Text = item.date.ToString("dd /MM yyyy");
                         cData.CurrentlySelectedHeader = item;
 
                         CurrencyHistoryView.availableCurrencies.Clear();
@@ -132,7 +130,7 @@ namespace CurrencyEchange
                     }
                     catch(Exception ex)
                     {
-
+                        textBlockStatus.Text = "Error: " + ex.Message;
                     }
 
                 }
